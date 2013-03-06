@@ -9,15 +9,27 @@
 </head> 
 <body> 
  
-<div data-role="page">
+<div data-role="page" id="main-page">
  
   <div data-role="header">
     <h1>Mobile App</h1>
+    <div data-role="navbar">
+      <li><a href="/item1.html" data-rel="dialog" data-icon="alert" data-iconpos="top">Popup</a></li>
+<li><a href="item1.html">SubPage</a></li>
+
+</ul>
+</div>
+
   </div>
  
   <div data-role="content"> 
-    <p>Page content goes here.</p>    
-  </div>
+  <ul data-role="listview" data-inset="true" data-filter="true">
+  <li><a href="item1.html" data-transition="slide">Item 1</a></li>
+  <li><a href="Item2.html" data-transition="slide">Item 2</a></li>
+  <li><a href="Item3.html" data-transition="slide">Item 3</a></li>
+  <li><a href="Item4.html" data-transition="slide">Item 4</a></li>
+</ul>
+</div>
  
   <div data-role="footer">
     <h4>Page Footer</h4>
