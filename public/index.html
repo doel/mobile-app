@@ -1,38 +1,52 @@
-<!DOCTYPE html> 
-<html> 
-  <head> 
-  <title>Page Title</title> 
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.css" />
-  <script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
-  <script src="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.js"></script>
-</head> 
-<body> 
- 
-<div data-role="page" id="main-page">
- 
-  <div data-role="header">
-    <h1>Mobile App</h1>
-    <div data-role="navbar">
-      <li><a href="/item1.html" data-rel="dialog" data-icon="alert" data-iconpos="top">Popup</a></li>
-<li><a href="item1.html">SubPage</a></li>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-1.4.3.min.js">
+</script>
+<script>
+$(document).ready(function () {
+        //event handler for submit button
+        $("#btnSubmit").click(function () {
+            //collect userName and password entered by users
+//           alert("hi");
+            var userName = $("#username").val();
+            var password = $("#password").val();
+//alert(username);
+//alert(password);
+            //call the authenticate function
+            authenticate(userName, password);
+        });
+    });
 
-</ul>
+    //authenticate function to make ajax call
+    function authenticate(userName, password) {
+alert("within authenticate");       
+ $.ajax
+        ({
+            type: "POST",
+            //the url where you want to sent the userName and password to
+            url: "http://demo.columnmsp.com:8081/search/jserver",
+           dataType: 'json',
+            async: false,
+            //json object to sent to the authentication url
+            data: '{"userName": "' + userName + '", "password" : "' + password + '"}',
+            complete: function (data) {
+                //do any process for successful authentication here
+            alert(data);
+            $("first-page").load('list.html');
+          // $("#first-page").text("I am here");
+ }
+        })
+    }
+</script>
+</head>
+<body>
+<div id="login-details">
+<input type="text" name="username" id="username" class="text" maxlength="30" />
+<br />
+<input type="password" name="password" id="password" class="text" maxlength="30" />
+<br />
+<input type="submit" name="btnSubmit" id="btnSubmit" />
 </div>
-
-  </div>
- 
-  <div data-role="content"> 
-  <ul data-role="listview" data-inset="true" data-filter="true">
-  <li><a href="item1.html" data-transition="slide">Item 1</a></li>
-  <li><a href="Item2.html" data-transition="slide">Item 2</a></li>
-  <li><a href="Item3.html" data-transition="slide">Item 3</a></li>
-  <li><a href="Item4.html" data-transition="slide">Item 4</a></li>
-</ul>
-</div>
- 
-  <div data-role="footer">
-    <h4>Page Footer</h4>
-  </div>
-</div>
- 
+<div id="first-page"></div>
+</body>
+</html>
