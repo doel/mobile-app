@@ -1,8 +1,9 @@
 <html>
 <head>
-<script src="http://code.jquery.com/jquery-1.4.3.min.js">
+<script src="http://code.jquery.com/jquery-1.4.3.js">
 </script>
-<script>
+<!script src="https://github.com/padolsey/jQuery-Plugins/blob/master/cross-domain-ajax/jquery.xdomainajax.js"><!/script>
+<script type="text/javascript">
 $(document).ready(function () {
         //event handler for submit button
         $("#btnSubmit").click(function () {
@@ -22,20 +23,28 @@ $(document).ready(function () {
 alert("within authenticate");       
  $.ajax
         ({
-            type: "POST",
+            type: "GET",
             //the url where you want to sent the userName and password to
             url: "http://demo.columnmsp.com:8081/search/jserver",
-           dataType: 'json',
+           //crossDomain: true,
+           dataType: 'jsonp',
             async: false,
             //json object to sent to the authentication url
-            data: '{"userName": "' + userName + '", "password" : "' + password + '"}',
-            complete: function (data) {
+            data: '{"token": "","messages": [{"props": {"type": "Auth","id": "00001","user":' + '"' + userName + '"' + "," + '"pass":' + '"' + password + '" }}]}',
+            jsonpCallback: 'callbackForJsonp',         
+         success: function () {
                 //do any process for successful authentication here
-            alert(data);
+            alert("hiii");
             $("#first-page").load('list.html');
           // $("#first-page").text("I am here");
- }
+ },
+          error: function() {
+alert("error");
+}
         })
+callbackForJsonp = function(status,data){
+ alert("data: " + data + ", status: " + status);
+}
     }
 </script>
 </head>
