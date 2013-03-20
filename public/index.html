@@ -1,61 +1,42 @@
-<html>
+<!DOCTYPE html>
+<html lang='en'>
 <head>
 <script src="http://code.jquery.com/jquery-1.4.3.js">
 </script>
-<!script src="https://github.com/padolsey/jQuery-Plugins/blob/master/cross-domain-ajax/jquery.xdomainajax.js"><!/script>
-<script type="text/javascript">
+<script language="javascript" type="text/javascript">
 $(document).ready(function () {
-        //event handler for submit button
-        $("#btnSubmit").click(function () {
-            //collect userName and password entered by users
-//           alert("hi");
-            var userName = $("#username").val();
-            var password = $("#password").val();
-//alert(username);
-//alert(password);
-            //call the authenticate function
-            authenticate(userName, password);
-        });
-    });
+$('form').submit(function() {
+alert("within submit");  
+alert($(this).attr('method'));
+var url = $(this).attr('action')
+//  var params = $(this).serialize()
+var userName = $("#username").val();
+var password = $("#password").val();
+var params = '{"token": "","messages": [{"props": {"type": "Auth","id": "00001","user":' + '"' + userName + '"' + "," + '"pass":' + '"' + password + '" }}]}'
+alert(url);
+alert(params);
+  $.getJSON(url + '?' + params + "&callback=?", function(data) {
+  
+   alert("1111");
+    },
+"html" );
+  return false
+});
 
-    //authenticate function to make ajax call
-    function authenticate(userName, password) {
-alert("within authenticate");       
- $.ajax
-        ({
-            type: "GET",
-            //the url where you want to sent the userName and password to
-            url: "http://demo.columnmsp.com:8081/search/jserver",
-           //crossDomain: true,
-           dataType: 'jsonp',
-            async: false,
-            //json object to sent to the authentication url
-            data: '{"token": "","messages": [{"props": {"type": "Auth","id": "00001","user":' + '"' + userName + '"' + "," + '"pass":' + '"' + password + '" }}]}',
-            jsonpCallback: 'callbackForJsonp',         
-         success: function () {
-                //do any process for successful authentication here
-            alert("hiii");
-            $("#first-page").load('list.html');
-          // $("#first-page").text("I am here");
- },
-          error: function() {
-alert("error");
-}
-        })
-callbackForJsonp = function(status,data){
- alert("data: " + data + ", status: " + status);
-}
-    }
+})
+    
 </script>
 </head>
 <body>
 <div id="login-details">
-<input type="text" name="username" id="username" class="text" maxlength="30" />
+<form id="contact" action="http://demo.columnmsp.com:8081/search/jserver" method="post">
+<input type="text" name="username" id="username" class="text" />
 <br />
-<input type="password" name="password" id="password" class="text" maxlength="30" />
+<input type="password" name="password" id="password" class="text" />
 <br />
 <input type="submit" name="btnSubmit" id="btnSubmit" />
 </div>
+</form>
 <div id="first-page"></div>
 </body>
 </html>
