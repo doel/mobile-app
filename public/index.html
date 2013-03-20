@@ -15,12 +15,12 @@ var password = $("#password").val();
 var params = '{"token": "","messages": [{"props": {"type": "Auth","id": "00001","user":' + '"' + userName + '"' + "," + '"pass":' + '"' + password + '" }}]}'
 alert(url);
 alert(params);
-  $.getJSON(url + '?' + params + "&callback=?", function(data) {
+  $.get(url,params, function(data) {
   
    alert("1111");
     },
-"html" );
-  return false
+"jsonp" );
+ return false
 });
 
 })
